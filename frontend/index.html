@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SKY AI Avatar Studio: Create lifelike AI talking avatars from images or videos with cutting-edge technology.">
+  <meta name="keywords" content="AI avatar, talking avatar, video generation, Wav2Lip, SKY AI">
+  <meta name="author" content="SKY AI Avatar Studio">
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="SKY AI Avatar Studio">
+  <meta property="og:description" content="Transform your media into lifelike animated characters with AI.">
+  <meta property="og:image" content="https://www.skyai.studio/og-image.jpg">
+  <meta property="og:url" content="https://www.skyai.studio">
+  <meta property="og:type" content="website">
+  <title>✨ SKY AI Avatar Studio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script defer src="/script.js"></script>
+</head>
+<body>
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- Cookies Consent Popup -->
+  <div id="cookiesConsent" class="cookies-consent">
+    <p>We use cookies to enhance your experience. By continuing, you agree to our <a href="/cookies" target="_blank">Cookies Policy</a>.</p>
+    <button id="acceptCookies" class="cookies-btn">Accept</button>
+    <button id="declineCookies" class="cookies-btn decline">Decline</button>
+  </div>
+
+  <div class="main-container">
+    <!-- Navigation Bar -->
+    <nav class="navbar sticky" aria-label="Main navigation">
+      <div class="nav-brand">
+        <i class="fas fa-magic" aria-hidden="true"></i>
+        <span>SKY AI Avatar Studio</span>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links">
+        <li><a href="#home" class="active scroll-link"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+        <li><a href="#pricing" class="scroll-link"><i class="fas fa-dollar-sign" aria-hidden="true"></i> Pricing</a></li>
+        <li><a href="https://www.skyinfinitetech.com/" target="_blank"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+        <li><a href="#help" class="scroll-link"><i class="fas fa-question-circle" aria-hidden="true"></i> Help</a></li>
+      </ul>
+      <div class="user-menu">
+        <button class="user-toggle" title="Open account options" aria-label="Toggle account menu" aria-expanded="false">
+          <i class="fas fa-user-circle"></i>
+          <span>Account</span>
+        </button>
+        <div class="user-dropdown hidden">
+          <button id="loginBtn" class="dropdown-btn">Login</button>
+          <button id="signupBtn" class="dropdown-btn">Signup</button>
+        </div>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper" id="home">
+      <div class="main-content">
+        <header class="app-header">
+          <h1>Create <span>AI Talking Avatar</span></h1>
+          <p class="typewriter"></p>
+          <button class="tour-btn" aria-label="Start onboarding tour"><i class="fas fa-play"></i> Take a Tour</button>
+        </header>
+
+        <!-- Mode Selection -->
+        <div class="mode-selector">
+          <button class="mode-btn active" data-mode="image" aria-label="Select Image and Audio mode">
+            <i class="fas fa-image"></i>
+            <span>Image + Audio</span>
+          </button>
+          <button class="mode-btn" data-mode="video" aria-label="Select Video and Audio mode">
+            <i class="fas fa-video"></i>
+            <span>Video + Audio</span>
+          </button>
+        </div>
+
+        <!-- Upload Sections -->
+        <div class="upload-sections">
+          <!-- Image + Audio Mode -->
+          <div class="upload-mode active" id="imageMode">
+            <div class="upload-grid">
+              <div class="upload-card">
+                <input type="file" id="imageUpload" accept="image/*" hidden>
+                <label for="imageUpload" class="upload-area">
+                  <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                  </div>
+                  <h3>Upload Image</h3>
+                  <p>PNG, JPG (Max 10MB)</p>
+                  <div id="imagePreview" class="preview-container"></div>
+                  <div id="imageName" class="file-name">No file selected</div>
+                </label>
+              </div>
+
+              <div class="upload-card">
+                <input type="file" id="audioUpload1" accept="audio/*" hidden>
+                <label for="audioUpload1" class="upload-area">
+                  <div class="upload-icon">
+                    <i class="fas fa-music" aria-hidden="true"></i>
+                  </div>
+                  <h3>Upload Audio</h3>
+                  <p>MP3, WAV (Max 10MB)</p>
+                  <div id="audioWaveform1" class="waveform"></div>
+                  <div id="audioName1" class="file-name">No file selected</div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video + Audio Mode -->
+          <div class="upload-mode" id="videoMode">
+            <div class="upload-grid">
+              <div class="upload-card">
+                <input type="file" id="videoUpload" accept="video/*" hidden>
+                <label for="videoUpload" class="upload-area">
+                  <div class="upload-icon">
+                    <i class="fas fa-video" aria-hidden="true"></i>
+                  </div>
+                  <h3>Upload Video</h3>
+                  <p>MP4, MOV (Max 20MB)</p>
+                  <video id="videoPreview" class="preview-container" controls loading="lazy"></video>
+                  <div id="videoName" class="file-name">No file selected</div>
+                </label>
+              </div>
+
+              <div class="upload-card">
+                <input type="file" id="audioUpload2" accept="audio/*" hidden>
+                <label for="audioUpload2" class="upload-area">
+                  <div class="upload-icon">
+                    <i class="fas fa-music" aria-hidden="true"></i>
+                  </div>
+                  <h3>Upload Audio</h3>
+                  <p>MP3, WAV (Max 10MB)</p>
+                  <div id="audioWaveform2" class="waveform"></div>
+                  <div id="audioName2" class="file-name">No file selected</div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Options -->
+        <div class="advanced-options">
+          <div class="option-header">
+            <h3><i class="fas fa-sliders-h" aria-hidden="true"></i> Advanced Options</h3>
+            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <div class="option-content">
+            <div class="option-group">
+              <label for="resolution">Resolution: <i class="fas fa-info-circle" title="Higher resolutions increase quality but take longer"></i></label>
+              <select id="resolution">
+                <option value="hd">HD (1280x720)</option>
+                <option value="fullhd" selected>Full HD (1920x1080)</option>
+                <option value="4k">4K (3840x2160)</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <label for="quality">Quality: <i class="fas fa-info-circle" title="Higher quality improves visuals but increases processing time"></i></label>
+              <select id="quality">
+                <option value="low">Low (Faster)</option>
+                <option value="medium" selected>Medium (Balanced)</option>
+                <option value="high">High (Best)</option>
+              </select>
+            </div>
+            <div class="option-group">
+              <label for="background">Background: <i class="fas fa-info-circle" title="Choose how the background appears in the final video"></i></label>
+              <select id="background">
+                <option value="original">Original</option>
+                <option value="blur">Blurred</option>
+                <option value="transparent">Transparent</option>
+                <option value="custom">Custom Color</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button id="generateBtn" class="generate-btn">
+          <span id="btnText">Generate AI Avatar</span>
+          <div id="spinner" class="spinner hidden">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+        </button>
+
+        <!-- Progress Bar -->
+        <div id="progress" class="progress-bar hidden">
+          <div class="progress-fill"></div>
+          <span class="progress-text">0%</span>
+        </div>
+
+        <!-- Status Message -->
+        <div id="status" class="status-message" aria-live="polite"></div>
+
+        <!-- Result Section -->
+        <div id="result" class="result-container hidden">
+          <div class="result-header">
+            <h2><i class="fas fa-star" aria-hidden="true"></i> Your AI Avatar</h2>
+            <div class="result-actions">
+              <button id="downloadBtn" class="action-btn download-btn">
+                <i class="fas fa-download" aria-hidden="true"></i> Download
+              </button>
+              <button id="resetBtn" class="action-btn reset-btn">
+                <i class="fas fa-redo" aria-hidden="true"></i> Create New
+              </button>
+              <button id="shareBtn" class="action-btn share-btn">
+                <i class="fas fa-share-alt" aria-hidden="true"></i> Share
+              </button>
+            </div>
+          </div>
+          <div class="video-wrapper">
+            <div class="video-container">
+              <video id="outputVideo" controls playsinline loading="lazy"></video>
+              <div class="video-loading hidden">
+                <i class="fas fa-spinner fa-spin"></i> Processing video...
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing-section">
+          <h2>Pricing Plans</h2>
+          <p class="section-subtitle">Choose a plan that suits your needs</p>
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <h3>Free</h3>
+              <p class="price">$0<span>/month</span></p>
+              <ul>
+                <li>5 videos per month</li>
+                <li>HD resolution</li>
+                <li>Basic support</li>
+                <li>Watermarked output</li>
+              </ul>
+              <button class="plan-btn">Get Started</button>
+            </div>
+            <div class="pricing-card popular">
+              <h3>Pro</h3>
+              <p class="price">$19<span>/month</span></p>
+              <ul>
+                <li>50 videos per month</li>
+                <li>Full HD & 4K resolution</li>
+                <li>Priority support</li>
+                <li>No watermark</li>
+              </ul>
+              <button class="plan-btn">Choose Pro</button>
+            </div>
+            <div class="pricing-card">
+              <h3>Enterprise</h3>
+              <p class="price">Custom</p>
+              <ul>
+                <li>Unlimited videos</li>
+                <li>All resolutions</li>
+                <li>Dedicated support</li>
+                <li>API access</li>
+              </ul>
+              <button class="plan-btn">Contact Us</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Download Modal -->
+        <div id="downloadModal" class="modal hidden">
+          <div class="modal-content">
+            <span class="modal-close" aria-label="Close modal">×</span>
+            <h2>Download Your AI Avatar</h2>
+            <p>Your video is ready! Click below to download.</p>
+            <div class="modal-details">
+              <p><strong>File:</strong> <span id="modalFileName">ai-avatar.mp4</span></p>
+              <p><strong>Format:</strong> MP4</p>
+            </div>
+            <a id="modalDownloadLink" href="#" class="modal-download-btn">
+              <i class="fas fa-download" aria-hidden="true"></i> Download Now
+            </a>
+          </div>
+        </div>
+
+        <!-- Login/Signup Modal -->
+        <div id="authModal" class="modal hidden">
+          <div class="modal-content">
+            <span class="modal-close" aria-label="Close modal">×</span>
+            <h2 id="authTitle">Login</h2>
+            <form id="authForm">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+              </div>
+              <div class="form-group hidden" id="confirmPasswordGroup">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword">
+              </div>
+              <button type="submit" class="auth-btn">Login</button>
+              <p id="authSwitch">Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <footer class="app-footer">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>SKY AI Avatar Studio</h4>
+            <p>Transform your media into lifelike animated characters with cutting-edge AI technology.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#pricing" class="scroll-link"><i class="fas fa-arrow-right" aria-hidden="true"></i> Pricing</a></li>
+              <li><a href="/docs" target="_blank"><i class="fas fa-arrow-right" aria-hidden="true"></i> Documentation</a></li>
+              <li><a href="/api" target="_blank"><i class="fas fa-arrow-right" aria-hidden="true"></i> API Reference</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="/privacy" target="_blank"><i class="fas fa-arrow-right" aria-hidden="true"></i> Privacy Policy</a></li>
+              <li><a href="/terms" target="_blank"><i class="fas fa-arrow-right" aria-hidden="true"></i> Terms of Service</a></li>
+              <li><a href="/cookies" target="_blank"><i class="fas fa-arrow-right" aria-hidden="true"></i> Cookies Policy</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Contact</h4>
+            <ul>
+              <li><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:support@skyai.studio">support@skyai.studio</a></li>
+              <li><i class="fas fa-phone" aria-hidden="true"></i> +91 (9540) 543-4567</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 SKY AI Avatar Studio. All rights reserved.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Confetti effect -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Placeholder Legal Pages -->
+  <template id="privacyTemplate">
+    <div class="legal-page">
+      <h1>Privacy Policy</h1>
+      <p>Last updated: April 22, 2025</p>
+      <p>At SKY AI Avatar Studio, we value your privacy. This Privacy Policy outlines how we collect, use, and protect your personal information.</p>
+      <h2>Information We Collect</h2>
+      <p>We may collect personal information such as your email address and account details when you sign up or use our services.</p>
+      <h2>How We Use Your Information</h2>
+      <p>Your information is used to provide and improve our services, process payments, and communicate with you.</p>
+      <h2>Data Security</h2>
+      <p>We implement industry-standard security measures to protect your data.</p>
+      <p>For more details, contact us at <a href="mailto:support@skyai.studio">support@skyai.studio</a>.</p>
+    </div>
+  </template>
+
+  <template id="termsTemplate">
+    <div class="legal-page">
+      <h1>Terms of Service</h1>
+      <p>Last updated: April 22, 2025</p>
+      <p>By using SKY AI Avatar Studio, you agree to these Terms of Service.</p>
+      <h2>Use of Services</h2>
+      <p>You may use our services to create AI-generated videos in accordance with our policies.</p>
+      <h2>Account Responsibilities</h2>
+      <p>You are responsible for maintaining the security of your account.</p>
+      <h2>Prohibited Activities</h2>
+      <p>You may not use our services for illegal or unauthorized purposes.</p>
+      <p>Contact us at <a href="mailto:support@skyai.studio">support@skyai.studio</a> for questions.</p>
+    </div>
+  </template>
+
+  <template id="cookiesTemplate">
+    <div class="legal-page">
+      <h1>Cookies Policy</h1>
+      <p>Last updated: April 22, 2025</p>
+      <p>SKY AI Avatar Studio uses cookies to enhance your browsing experience.</p>
+      <h2>What Are Cookies?</h2>
+      <p>Cookies are small text files stored on your device to remember preferences and improve site functionality.</p>
+      <h2>How We Use Cookies</h2>
+      <p>We use cookies for analytics, personalization, and advertising.</p>
+      <h2>Managing Cookies</h2>
+      <p>You can manage cookie preferences through your browser settings.</p>
+      <p>Contact us at <a href="mailto:support@skyai.studio">support@skyai.studio</a> for more information.</p>
+    </div>
+  </template>
+</body>
+</html>

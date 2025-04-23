@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Model and weights files
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.h5
+
+# Large media files
+*.mp3
+*.mp4
+*.jpg
+*.png
+*.wav
+
+# Output & Upload folders
+uploads/
+backend/backend/uploads/
+backend/backend/outputs/
+
+# Ignore submodules if not using them
+backend/models/SadTalker/
+backend/models/wav2lip.pth
+backend/Wav2Lip/checkpoints/wav2lip.pth
+
+# Virtual environment
+env/
+venv/
+.venv/
+
+# System files
+.DS_Store
+Thumbs.db
+*.log
+backend/models/wav2lip.pth
+backend/models/wav2lip.pth
